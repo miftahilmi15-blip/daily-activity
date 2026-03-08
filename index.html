@@ -3,173 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Hub - Miftah Style</title>
+    <title>Daily Hub - Miftah Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; }
-        .gojek-green { color: #00880d; }
-        .gojek-bg { background-color: #00880d; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            /* Perpaduan Hijau, Biru, Putih */
+            background: linear-gradient(135deg, #00880d 0%, #005f6b 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal.active { display: flex; }
     </style>
 </head>
-<body class="max-w-md mx-auto bg-gray-50 min-h-screen pb-20">
+<body class="max-w-md mx-auto pb-24">
 
-    <div class="p-4 bg-white sticky top-0 z-10 shadow-sm">
-        <div class="flex items-center gap-3">
-            <div class="relative flex-1">
-                <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
-                <input type="text" placeholder="Cari fitur atau tugas..." class="w-full pl-10 pr-4 py-2 bg-gray-100 border-none rounded-full text-sm focus:ring-2 focus:ring-green-500 outline-none">
+    <div class="p-6 text-white">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h1 class="text-xl font-bold">Halo, Miftah!</h1>
+                <p class="text-xs opacity-80">Semangat produktif hari ini.</p>
             </div>
-            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-700">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center border border-white/30">
                 <i class="fa-solid fa-user"></i>
             </div>
         </div>
-    </div>
 
-    <div class="px-4 py-3">
-        <div class="bg-sky-600 rounded-2xl p-4 text-white flex items-center justify-between shadow-md">
-            <div class="flex items-center gap-3 bg-white/20 p-2 rounded-xl pr-6">
-                <div class="bg-white rounded-lg p-1 text-sky-600">
+        <div class="bg-white rounded-2xl p-4 text-slate-800 shadow-xl flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-sky-500 text-white p-2 rounded-xl">
                     <i class="fa-solid fa-wallet"></i>
                 </div>
                 <div>
-                    <p class="text-[10px] font-semibold opacity-80 uppercase leading-none">Status Saldo</p>
-                    <p class="text-sm font-bold leading-tight">Rp0</p>
-                    <p class="text-[10px] opacity-70">0 coins</p>
+                    <p class="text-[10px] font-bold text-sky-600 uppercase">Gojek Style Pay</p>
+                    <p class="text-lg font-black leading-none">Rp 0</p>
                 </div>
             </div>
-            <div class="flex gap-4 text-center">
-                <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mb-1"><i class="fa-solid fa-arrow-up text-xs"></i></div>
-                    <span class="text-[10px] font-medium">Bayar</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mb-1"><i class="fa-solid fa-clock-rotate-left text-xs"></i></div>
-                    <span class="text-[10px] font-medium">Riwayat</span>
-                </div>
-                <div class="flex flex-col items-center relative">
-                    <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mb-1"><i class="fa-solid fa-ellipsis text-xs"></i></div>
-                    <span class="text-[10px] font-medium">Lainnya</span>
-                    <span class="absolute -top-1 -right-1 bg-red-500 text-[8px] px-1 rounded-full border border-sky-600">8</span>
-                </div>
+            <div class="flex gap-4 border-l pl-4 border-gray-100">
+                <button class="flex flex-col items-center gap-1">
+                    <i class="fa-solid fa-circle-plus text-sky-500"></i>
+                    <span class="text-[10px] font-bold">Top Up</span>
+                </button>
+                <button class="flex flex-col items-center gap-1">
+                    <i class="fa-solid fa-paper-plane text-sky-500"></i>
+                    <span class="text-[10px] font-bold">Kirim</span>
+                </button>
             </div>
         </div>
     </div>
 
-    <div class="px-4 py-4 grid grid-cols-4 gap-y-6 gap-x-2 text-center">
-        
-        <div class="flex flex-col items-center group">
-            <div class="relative w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm">
-                <i class="fa-solid fa-video text-orange-600 text-xl"></i>
-                <span class="absolute -top-2 left-0 bg-black text-white text-[8px] font-bold px-1 rounded italic uppercase">Murah!</span>
-            </div>
-            <span class="text-[11px] text-gray-700 font-medium">Shopee Aff</span>
+    <div class="glass-card mt-2 rounded-t-[32px] min-h-[60vh] p-6 shadow-2xl">
+        <div class="grid grid-cols-4 gap-y-8 gap-x-2">
+            
+            <button onclick="openModal('Shopee Affiliate')" class="flex flex-col items-center group">
+                <div class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm transition-transform active:scale-90">
+                    <i class="fa-solid fa-video text-orange-600 text-xl"></i>
+                </div>
+                <span class="text-[11px] text-gray-600 font-semibold">Affiliate</span>
+            </button>
+
+            <button onclick="openModal('Membaca Buku')" class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm active:scale-90">
+                    <i class="fa-solid fa-book-open text-blue-600 text-xl"></i>
+                </div>
+                <span class="text-[11px] text-gray-600 font-semibold">Baca</span>
+            </button>
+
+            <button onclick="openModal('Coding Project')" class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm active:scale-90">
+                    <i class="fa-solid fa-code text-slate-700 text-xl"></i>
+                </div>
+                <span class="text-[11px] text-gray-600 font-semibold">Coding</span>
+            </button>
+
+            <button onclick="openModal('Smart Fisheries')" class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-cyan-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm active:scale-90">
+                    <i class="fa-solid fa-fish text-cyan-600 text-xl"></i>
+                </div>
+                <span class="text-[11px] text-gray-600 font-semibold">Fishery</span>
+            </button>
+
+            <button onclick="openModal('Katalog Digital')" class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm active:scale-90">
+                    <i class="fa-solid fa-list-check text-pink-600 text-xl"></i>
+                </div>
+                <span class="text-[11px] text-gray-600 font-semibold">Katalog</span>
+            </button>
+
+            <button onclick="openModal('Stek Pohon Tin')" class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm active:scale-90">
+                    <i class="fa-solid fa-leaf text-green-600 text-xl"></i>
+                </div>
+                <span class="text-[11px] text-gray-600 font-semibold">Tanaman</span>
+            </button>
+
+            <button onclick="openModal('Ternak Kambing')" class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm active:scale-90">
+                    <i class="fa-solid fa-cow text-amber-600 text-xl"></i>
+                </div>
+                <span class="text-[11px] text-gray-600 font-semibold">Kambing</span>
+            </button>
+
+            <button onclick="openModal('Side Business')" class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm active:scale-90">
+                    <i class="fa-solid fa-microchip text-purple-600 text-xl"></i>
+                </div>
+                <span class="text-[11px] text-gray-600 font-semibold">Mining</span>
+            </button>
+
+            <button onclick="openModal('UKM Keperawatan')" class="flex flex-col items-center">
+                <div class="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm active:scale-90">
+                    <i class="fa-solid fa-hospital-user text-red-600 text-xl"></i>
+                </div>
+                <span class="text-[11px] text-gray-600 font-semibold">UKM</span>
+            </button>
+
         </div>
 
-        <div class="flex flex-col items-center">
-            <div class="relative w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm">
-                <i class="fa-solid fa-book-open text-blue-600 text-xl"></i>
-                <span class="absolute -top-2 left-0 bg-black text-white text-[8px] font-bold px-1 rounded italic uppercase">-30rb</span>
-            </div>
-            <span class="text-[11px] text-gray-700 font-medium">Baca Buku</span>
-        </div>
-
-        <div class="flex flex-col items-center">
-            <div class="relative w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm">
-                <i class="fa-solid fa-code text-red-600 text-xl"></i>
-                <span class="absolute -top-2 left-0 bg-black text-white text-[8px] font-bold px-1 rounded italic uppercase">-70%</span>
-            </div>
-            <span class="text-[11px] text-gray-700 font-medium">Coding</span>
-        </div>
-
-        <div class="flex flex-col items-center">
-            <div class="relative w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm">
-                <i class="fa-solid fa-fish text-green-600 text-xl"></i>
-                <span class="absolute -top-2 left-0 bg-black text-white text-[8px] font-bold px-1 rounded italic uppercase">5rb!</span>
-            </div>
-            <span class="text-[11px] text-gray-700 font-medium">Fisheries</span>
-        </div>
-
-        <div class="flex flex-col items-center">
-            <div class="relative w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm">
-                <i class="fa-solid fa-list-check text-pink-600 text-xl"></i>
-                <span class="absolute -top-2 left-0 bg-black text-white text-[8px] font-bold px-1 rounded italic uppercase text-nowrap">30 Mins</span>
-            </div>
-            <span class="text-[11px] text-gray-700 font-medium">Katalog</span>
-        </div>
-
-        <div class="flex flex-col items-center">
-            <div class="relative w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm">
-                <i class="fa-solid fa-leaf text-emerald-600 text-xl"></i>
-                <span class="absolute -top-2 left-0 bg-black text-white text-[8px] font-bold px-1 rounded italic uppercase">35 Juta</span>
-            </div>
-            <span class="text-[11px] text-gray-700 font-medium">Stek Tin</span>
-        </div>
-
-        <div class="flex flex-col items-center">
-            <div class="relative w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm">
-                <i class="fa-solid fa-cow text-amber-600 text-xl"></i>
-                <span class="absolute -top-2 left-0 bg-black text-white text-[8px] font-bold px-1 rounded italic uppercase">-50%</span>
-            </div>
-            <span class="text-[11px] text-gray-700 font-medium">Kambing</span>
-        </div>
-
-        <div class="flex flex-col items-center">
-            <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm text-purple-600 text-xl">
-                <i class="fa-solid fa-microchip"></i>
-            </div>
-            <span class="text-[11px] text-gray-700 font-medium">Mining Biz</span>
-        </div>
-
-        <div class="flex flex-col items-center">
-            <div class="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm text-gray-500 text-xl">
-                <i class="fa-solid fa-grid-2"></i>
-                <i class="fa-solid fa-hospital-user"></i>
-            </div>
-            <span class="text-[11px] text-gray-700 font-medium">UKM Kep</span>
-        </div>
-
-    </div>
-
-    <div class="px-4 mt-4">
-        <div class="w-full h-24 bg-gradient-to-r from-green-400 to-lime-400 rounded-2xl p-4 flex items-center justify-between text-white overflow-hidden relative">
+        <div class="mt-10 bg-gradient-to-br from-sky-50 to-white border border-sky-100 p-4 rounded-2xl flex items-center gap-4">
+            <div class="text-sky-600 text-3xl"><i class="fa-solid fa-star"></i></div>
             <div>
-                <p class="font-bold text-lg leading-tight">Diskon 51% Langganan <span class="font-black italic">PLUS</span></p>
-                <p class="text-[10px]">Buruan join buat dapetin keuntungannya!</p>
-            </div>
-            <div class="absolute -right-4 top-0 opacity-20 text-6xl rotate-12">
-                <i class="fa-solid fa-ticket"></i>
+                <p class="font-bold text-slate-800">Miftah Premium</p>
+                <p class="text-xs text-slate-500 leading-tight">Buka akses integrasi API Smart Fisheries otomatis.</p>
             </div>
         </div>
     </div>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around items-center py-2 max-w-md mx-auto">
+    <div id="featureModal" class="modal">
+        <div class="bg-white w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h2 id="modalTitle" class="font-bold text-lg text-slate-800">Fitur</h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-red-500 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="p-10 text-center">
+                <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-gray-200">
+                    <i class="fa-solid fa-hourglass-half text-gray-300 text-2xl animate-pulse"></i>
+                </div>
+                <p class="text-gray-400 text-sm">Halaman sedang dikembangkan...</p>
+                <p class="text-[10px] text-gray-300 mt-2 italic">Coming soon: Integrasi Database Miftah</p>
+            </div>
+            <div class="p-4 bg-gray-50 flex gap-2">
+                <button onclick="closeModal()" class="flex-1 py-3 bg-white border font-bold text-xs rounded-xl text-gray-600">TUTUP</button>
+                <button onclick="alert('Fitur segera hadir!')" class="flex-1 py-3 bg-green-600 font-bold text-xs rounded-xl text-white">SIMPAN DATA</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t flex justify-around items-center py-3 max-w-md mx-auto shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
         <div class="flex flex-col items-center text-green-700">
-            <i class="fa-solid fa-house text-lg"></i>
+            <i class="fa-solid fa-house-chimney text-lg"></i>
             <span class="text-[10px] font-bold">Beranda</span>
         </div>
         <div class="flex flex-col items-center text-gray-400">
-            <div class="relative">
-                <i class="fa-solid fa-percent text-lg"></i>
-                <span class="absolute -top-1 -right-1 bg-red-500 w-2 h-2 rounded-full"></span>
-            </div>
-            <span class="text-[10px]">Promo</span>
+            <i class="fa-solid fa-chart-line text-lg"></i>
+            <span class="text-[10px]">Statistik</span>
         </div>
         <div class="flex flex-col items-center text-gray-400">
-            <i class="fa-solid fa-clipboard-list text-lg"></i>
-            <span class="text-[10px]">Aktivitas</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400">
-            <div class="relative">
-                <i class="fa-solid fa-message text-lg"></i>
-                <span class="absolute -top-1 -right-1 bg-red-500 text-[8px] text-white px-1 rounded-full">1</span>
-            </div>
-            <span class="text-[10px]">Chat</span>
+            <i class="fa-solid fa-bell text-lg"></i>
+            <span class="text-[10px]">Notifikasi</span>
         </div>
     </nav>
+
+    <script>
+        function openModal(title) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('featureModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('featureModal').classList.remove('active');
+        }
+
+        // Tutup modal kalau klik area luar modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('featureModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
 
 </body>
 </html>
