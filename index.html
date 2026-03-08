@@ -26,6 +26,7 @@
         .icon-box {
             background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .icon-box:active {
@@ -40,7 +41,6 @@
             border-radius: 24px;
         }
 
-        /* Efek cahaya di belakang */
         .blob {
             position: fixed;
             width: 300px;
@@ -92,46 +92,46 @@
 
     <div class="grid grid-cols-3 gap-6 text-center mb-12">
         
-        <div onclick="shopee.html" class="flex flex-col items-center gap-3">
+        <div onclick="window.location.href='shopee.html'" class="flex flex-col items-center gap-3 cursor-pointer group">
             <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-orange-400 text-2xl shadow-inner">
                 <i class="fa-solid fa-clapperboard"></i>
             </div>
-            <span class="text-[11px] font-semibold text-gray-300">Affiliate</span>
+            <span class="text-[11px] font-semibold text-gray-300 group-hover:text-orange-400 transition-colors">Affiliate</span>
         </div>
 
-        <div onclick="showModal('Smart Fisheries')" class="flex flex-col items-center gap-3">
+        <div onclick="window.location.href='fisheries.html'" class="flex flex-col items-center gap-3 cursor-pointer group">
             <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-cyan-400 text-2xl shadow-inner">
                 <i class="fa-solid fa-droplet"></i>
             </div>
-            <span class="text-[11px] font-semibold text-gray-300">Fisheries</span>
+            <span class="text-[11px] font-semibold text-gray-300 group-hover:text-cyan-400 transition-colors">Fisheries</span>
         </div>
 
-        <div onclick="showModal('Coding')" class="flex flex-col items-center gap-3">
+        <div onclick="window.location.href='coding.html'" class="flex flex-col items-center gap-3 cursor-pointer group">
             <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-purple-400 text-2xl shadow-inner">
                 <i class="fa-solid fa-terminal"></i>
             </div>
-            <span class="text-[11px] font-semibold text-gray-300">Dev Mode</span>
+            <span class="text-[11px] font-semibold text-gray-300 group-hover:text-purple-400 transition-colors">Dev Mode</span>
         </div>
 
-        <div onclick="showModal('Katalog')" class="flex flex-col items-center gap-3">
+        <div onclick="window.location.href='katalog.html'" class="flex flex-col items-center gap-3 cursor-pointer group">
             <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-pink-400 text-2xl shadow-inner">
                 <i class="fa-solid fa-layer-group"></i>
             </div>
-            <span class="text-[11px] font-semibold text-gray-300">Katalog</span>
+            <span class="text-[11px] font-semibold text-gray-300 group-hover:text-pink-400 transition-colors">Katalog</span>
         </div>
 
-        <div onclick="showModal('Stek Tin')" class="flex flex-col items-center gap-3">
+        <div onclick="window.location.href='agritech.html'" class="flex flex-col items-center gap-3 cursor-pointer group">
             <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-emerald-400 text-2xl shadow-inner">
                 <i class="fa-solid fa-seedling"></i>
             </div>
-            <span class="text-[11px] font-semibold text-gray-300">AgriTech</span>
+            <span class="text-[11px] font-semibold text-gray-300 group-hover:text-emerald-400 transition-colors">AgriTech</span>
         </div>
 
-        <div onclick="showModal('Mining')" class="flex flex-col items-center gap-3">
+        <div onclick="window.location.href='mining.html'" class="flex flex-col items-center gap-3 cursor-pointer group">
             <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-blue-400 text-2xl shadow-inner">
                 <i class="fa-solid fa-microchip"></i>
             </div>
-            <span class="text-[11px] font-semibold text-gray-300">Mining</span>
+            <span class="text-[11px] font-semibold text-gray-300 group-hover:text-blue-400 transition-colors">Mining</span>
         </div>
 
     </div>
