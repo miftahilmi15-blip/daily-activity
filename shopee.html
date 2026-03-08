@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopee Affiliate Manager - Miftah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background: #0f172a; /* Deep Dark */
+            color: white;
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+        .shopee-orange { color: #f97316; }
+        .bg-shopee { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
+        
+        /* Custom Checkbox */
+        input[type="checkbox"] {
+            width: 20px; height: 20px;
+            border-radius: 6px;
+            appearance: none;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            position: relative;
+        }
+        input[type="checkbox"]:checked { background: #f97316; }
+        input[type="checkbox"]:checked::after {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 12px;
+            color: white;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body class="max-w-md mx-auto pb-24">
+
+    <div class="p-6 flex justify-between items-center sticky top-0 bg-[#0f172a]/80 backdrop-blur-md z-50">
+        <a href="index.html" class="w-10 h-10 glass-card flex items-center justify-center active:scale-90 transition-all">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <h1 class="text-lg font-bold tracking-tight">Affiliate <span class="shopee-orange">Studio</span></h1>
+        <div class="w-10 h-10 glass-card flex items-center justify-center">
+            <i class="fa-solid fa-chart-line shopee-orange"></i>
+        </div>
+    </div>
+
+    <div class="px-6 space-y-6">
+        
+        <div class="grid grid-cols-2 gap-4">
+            <div class="glass-card p-4">
+                <p class="text-[10px] text-gray-400 uppercase font-bold mb-1">Total Klik</p>
+                <h3 class="text-xl font-black">1.2k+</h3>
+            </div>
+            <div class="glass-card p-4 border-b-2 border-b-orange-500">
+                <p class="text-[10px] text-gray-400 uppercase font-bold mb-1">Komisi Est.</p>
+                <h3 class="text-xl font-black shopee-orange">Rp 0</h3>
+            </div>
+        </div>
+
+        <div class="glass-card p-5">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold text-sm uppercase tracking-widest">Daily Goal</h2>
+                <span class="text-[10px] bg-orange-500/20 text-orange-400 px-2 py-1 rounded-full font-bold">3/5 Konten</span>
+            </div>
+            <div class="flex gap-2">
+                <div class="h-1.5 flex-1 bg-orange-500 rounded-full"></div>
+                <div class="h-1.5 flex-1 bg-orange-500 rounded-full"></div>
+                <div class="h-1.5 flex-1 bg-orange-500 rounded-full"></div>
+                <div class="h-1.5 flex-1 bg-white/10 rounded-full"></div>
+                <div class="h-1.5 flex-1 bg-white/10 rounded-full"></div>
+            </div>
+        </div>
+
+        <div class="space-y-3">
+            <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest pl-1">Input Ide Baru</h2>
+            <div class="flex gap-2">
+                <input id="taskInput" type="text" placeholder="Contoh: Review Stek Tin..." 
+                    class="flex-1 bg-white/5 border border-white/10 rounded-2xl px-5 py-3 text-sm outline-none focus:border-orange-500 transition-all">
+                <button onclick="addTask()" class="bg-shopee w-12 rounded-2xl flex items-center justify-center active:scale-90 transition-all">
+                    <i class="fa-solid fa-plus font-bold"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest pl-1">Antrian Konten</h2>
+            
+            <div id="taskList" class="space-y-3">
+                <div class="glass-card p-4 flex items-center justify-between group active:bg-white/5 transition-all">
+                    <div class="flex items-center gap-4">
+                        <input type="checkbox" onchange="toggleTask(this)">
+                        <div>
+                            <p class="text-sm font-semibold tracking-tight">Review Lampu Smart Home</p>
+                            <p class="text-[9px] text-gray-500">Belum Take Video • Prime Time 19:00</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-video text-xs text-orange-500/50"></i>
+                </div>
+
+                <div class="glass-card p-4 flex items-center justify-between group opacity-60">
+                    <div class="flex items-center gap-4">
+                        <input type="checkbox" checked onchange="toggleTask(this)">
+                        <div>
+                            <p class="text-sm font-semibold tracking-tight line-through">Spill Nutrisi Lele</p>
+                            <p class="text-[9px] text-green-500 font-bold">Sudah Upload ✓</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card p-5 bg-gradient-to-br from-orange-500/10 to-transparent border-none">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center shopee-orange">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold uppercase mb-1">Trend Alert!</h4>
+                    <p class="text-[10px] text-gray-400 leading-relaxed">Produk "Home Appliance" lagi naik di pencarian Shopee Video. Coba spill barang unik di rumah Bos!</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="fixed bottom-8 left-6 right-6 flex gap-3 max-w-[calc(448px-3rem)] mx-auto">
+        <button onclick="window.open('https://affiliate.shopee.co.id/', '_blank')" class="flex-1 glass-card py-4 flex items-center justify-center gap-2 text-xs font-bold active:scale-95 transition-all">
+            <i class="fa-solid fa-external-link text-gray-400"></i> BUKA SHOPEE APP
+        </button>
+        <button class="w-14 h-14 bg-shopee rounded-2xl shadow-[0_8px_20px_rgba(249,115,22,0.4)] flex items-center justify-center active:scale-90 transition-all">
+            <i class="fa-solid fa-share-nodes"></i>
+        </button>
+    </div>
+
+    <script>
+        function addTask() {
+            const input = document.getElementById('taskInput');
+            if(input.value.trim() === "") return;
+            
+            const list = document.getElementById('taskList');
+            const newTask = `
+                <div class="glass-card p-4 flex items-center justify-between group active:bg-white/5 transition-all animate-fade-in">
+                    <div class="flex items-center gap-4">
+                        <input type="checkbox" onchange="toggleTask(this)">
+                        <div>
+                            <p class="text-sm font-semibold tracking-tight">${input.value}</p>
+                            <p class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Antrian Baru</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-video text-xs text-orange-500/50"></i>
+                </div>
+            `;
+            list.insertAdjacentHTML('afterbegin', newTask);
+            input.value = "";
+        }
+
+        function toggleTask(checkbox) {
+            const parent = checkbox.closest('.glass-card');
+            if(checkbox.checked) {
+                parent.classList.add('opacity-60');
+                parent.querySelector('p').classList.add('line-through');
+            } else {
+                parent.classList.remove('opacity-60');
+                parent.querySelector('p').classList.remove('line-through');
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fade-in 0.3s ease-out; }
+    </style>
+</body>
+</html>
