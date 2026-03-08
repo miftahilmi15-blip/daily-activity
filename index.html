@@ -3,152 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Hub - Miftah Style</title>
+    <title>Miftah Daily Hub - Futuristic</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #00880d 0%, #005f6b 100%); min-height: 100vh; }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
         
-        /* Animasi pencet tombol */
-        .btn-active:active { transform: scale(0.95); transition: 0.1s; }
-        
-        /* Gaya Modal (Jendela Pop-up) */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            z-index: 50;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background: radial-gradient(circle at top left, #004d40, #00243d);
+            min-height: 100vh;
+            color: white;
         }
-        .modal.show { display: flex; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .icon-box {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+            transition: all 0.3s ease;
+        }
+
+        .icon-box:active {
+            transform: scale(0.9) rotate(5deg);
+            background: rgba(255,255,255,0.3);
+        }
+
+        .floating-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+        }
+
+        /* Efek cahaya di belakang */
+        .blob {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: #00ff88;
+            filter: blur(100px);
+            opacity: 0.15;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); opacity: 0.15; }
+            50% { transform: scale(1.2); opacity: 0.25; }
+        }
+        .animate-pulse-soft { animation: pulse-soft 8s infinite; }
     </style>
 </head>
-<body class="max-w-md mx-auto pb-20">
+<body class="max-w-md mx-auto px-6 pt-10 pb-32 relative overflow-x-hidden">
 
-    <div class="p-4 bg-white/10 backdrop-blur-md sticky top-0 z-10 shadow-sm text-white">
-        <div class="flex items-center gap-3">
-            <div class="relative flex-1">
-                <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
-                <input type="text" onclick="showPopup('Pencarian')" placeholder="Cari fitur atau tugas..." class="w-full pl-10 pr-4 py-2 bg-white border-none rounded-full text-sm text-gray-800 outline-none">
-            </div>
-            <div onclick="showPopup('Profil Miftah')" class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white cursor-pointer btn-active">
-                <i class="fa-solid fa-user"></i>
-            </div>
+    <div class="blob top-0 -left-20 animate-pulse-soft"></div>
+    <div class="blob bottom-0 -right-20" style="background: #0088ff;"></div>
+
+    <div class="flex justify-between items-center mb-10">
+        <div>
+            <h1 class="text-2xl font-extrabold tracking-tight">Miftah Hub<span class="text-green-400">.</span></h1>
+            <p class="text-xs text-gray-400 font-light tracking-widest uppercase">System Operational v2.0</p>
+        </div>
+        <div onclick="showModal('Account')" class="w-12 h-12 glass rounded-2xl flex items-center justify-center cursor-pointer active:scale-90 transition-all">
+            <i class="fa-solid fa-bolt-lightning text-yellow-400"></i>
         </div>
     </div>
 
-    <div class="px-4 py-3">
-        <div class="bg-white rounded-2xl p-4 text-gray-800 flex items-center justify-between shadow-xl">
-            <div onclick="showPopup('Detail Saldo')" class="flex items-center gap-3 cursor-pointer btn-active">
-                <div class="bg-sky-100 rounded-lg p-2 text-sky-600">
-                    <i class="fa-solid fa-wallet"></i>
-                </div>
-                <div>
-                    <p class="text-[10px] font-bold text-gray-400 uppercase leading-none">Status Saldo</p>
-                    <p class="text-sm font-bold text-sky-600">Rp0</p>
-                </div>
+    <div onclick="showModal('Wallet System')" class="glass rounded-[32px] p-6 mb-10 cursor-pointer transition-all active:scale-95 group">
+        <div class="flex justify-between items-start mb-4">
+            <div class="space-y-1">
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Available Balance</p>
+                <h2 class="text-3xl font-extrabold">Rp 750.000</h2>
             </div>
-            <div class="flex gap-4 text-center">
-                <div onclick="showPopup('Menu Bayar')" class="flex flex-col items-center cursor-pointer btn-active">
-                    <div class="w-8 h-8 bg-sky-600 rounded-lg flex items-center justify-center mb-1 text-white"><i class="fa-solid fa-arrow-up text-xs"></i></div>
-                    <span class="text-[10px] font-bold">Bayar</span>
-                </div>
-                <div onclick="showPopup('Lainnya')" class="flex flex-col items-center cursor-pointer btn-active">
-                    <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center mb-1"><i class="fa-solid fa-ellipsis text-xs"></i></div>
-                    <span class="text-[10px] font-bold">Menu</span>
-                </div>
+            <div class="text-green-400 group-hover:rotate-12 transition-transform">
+                <i class="fa-solid fa-shield-check text-2xl"></i>
             </div>
+        </div>
+        <div class="flex gap-2">
+            <div class="h-1 flex-1 bg-green-500 rounded-full"></div>
+            <div class="h-1 w-12 bg-white/20 rounded-full"></div>
         </div>
     </div>
 
-    <div class="px-6 py-6 bg-white/95 mt-4 rounded-t-[40px] shadow-2xl min-h-screen">
-        <div class="grid grid-cols-4 gap-y-8 gap-x-2 text-center">
-            
-            <div onclick="showPopup('Shopee Affiliate')" class="flex flex-col items-center cursor-pointer btn-active">
-                <div class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-video text-orange-500 text-xl"></i></div>
-                <span class="text-[11px] font-bold text-gray-600">Shopee</span>
+    <div class="grid grid-cols-3 gap-6 text-center mb-12">
+        
+        <div onclick="showModal('Shopee Affiliate')" class="flex flex-col items-center gap-3">
+            <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-orange-400 text-2xl shadow-inner">
+                <i class="fa-solid fa-clapperboard"></i>
             </div>
-
-            <div onclick="showPopup('Baca Buku')" class="flex flex-col items-center cursor-pointer btn-active">
-                <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-book-open text-blue-500 text-xl"></i></div>
-                <span class="text-[11px] font-bold text-gray-600">Baca</span>
-            </div>
-
-            <div onclick="showPopup('Coding')" class="flex flex-col items-center cursor-pointer btn-active">
-                <div class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-code text-white text-xl"></i></div>
-                <span class="text-[11px] font-bold text-gray-600">Coding</span>
-            </div>
-
-            <div onclick="showPopup('Smart Fisheries')" class="flex flex-col items-center cursor-pointer btn-active">
-                <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-fish text-green-600 text-xl"></i></div>
-                <span class="text-[11px] font-bold text-gray-600">Ikan</span>
-            </div>
-
-            <div onclick="showPopup('Katalog')" class="flex flex-col items-center cursor-pointer btn-active">
-                <div class="w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-list-check text-pink-500 text-xl"></i></div>
-                <span class="text-[11px] font-bold text-gray-600">Katalog</span>
-            </div>
-
-            <div onclick="showPopup('Stek Tin')" class="flex flex-col items-center cursor-pointer btn-active">
-                <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-leaf text-emerald-600 text-xl"></i></div>
-                <span class="text-[11px] font-bold text-gray-600">Tanaman</span>
-            </div>
-
-            <div onclick="showPopup('UKM Keperawatan')" class="flex flex-col items-center cursor-pointer btn-active">
-                <div class="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-hospital-user text-red-600 text-xl"></i></div>
-                <span class="text-[11px] font-bold text-gray-600">UKM</span>
-            </div>
-
-            <div onclick="showPopup('Mining Biz')" class="flex flex-col items-center cursor-pointer btn-active">
-                <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-microchip text-purple-600 text-xl"></i></div>
-                <span class="text-[11px] font-bold text-gray-600">Mining</span>
-            </div>
-
+            <span class="text-[11px] font-semibold text-gray-300">Affiliate</span>
         </div>
+
+        <div onclick="showModal('Smart Fisheries')" class="flex flex-col items-center gap-3">
+            <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-cyan-400 text-2xl shadow-inner">
+                <i class="fa-solid fa-droplet"></i>
+            </div>
+            <span class="text-[11px] font-semibold text-gray-300">Fisheries</span>
+        </div>
+
+        <div onclick="showModal('Coding')" class="flex flex-col items-center gap-3">
+            <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-purple-400 text-2xl shadow-inner">
+                <i class="fa-solid fa-terminal"></i>
+            </div>
+            <span class="text-[11px] font-semibold text-gray-300">Dev Mode</span>
+        </div>
+
+        <div onclick="showModal('Katalog')" class="flex flex-col items-center gap-3">
+            <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-pink-400 text-2xl shadow-inner">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <span class="text-[11px] font-semibold text-gray-300">Katalog</span>
+        </div>
+
+        <div onclick="showModal('Stek Tin')" class="flex flex-col items-center gap-3">
+            <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-emerald-400 text-2xl shadow-inner">
+                <i class="fa-solid fa-seedling"></i>
+            </div>
+            <span class="text-[11px] font-semibold text-gray-300">AgriTech</span>
+        </div>
+
+        <div onclick="showModal('Mining')" class="flex flex-col items-center gap-3">
+            <div class="w-16 h-16 icon-box rounded-[24px] flex items-center justify-center text-blue-400 text-2xl shadow-inner">
+                <i class="fa-solid fa-microchip"></i>
+            </div>
+            <span class="text-[11px] font-semibold text-gray-300">Mining</span>
+        </div>
+
     </div>
 
-    <div id="modalBox" class="modal">
-        <div class="bg-white w-full max-w-xs rounded-3xl p-8 shadow-2xl text-center">
-            <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-dashed border-gray-300 text-gray-300">
-                <i class="fa-solid fa-screwdriver-wrench text-3xl"></i>
+    <div class="glass rounded-3xl p-5 flex items-center justify-between border-l-4 border-l-green-500">
+        <div class="flex items-center gap-4">
+            <div class="text-2xl text-green-400 animate-pulse"><i class="fa-solid fa-circle-dot"></i></div>
+            <div>
+                <p class="text-xs font-bold uppercase tracking-tight">System Status</p>
+                <p class="text-[10px] text-gray-400">All modules running normal</p>
             </div>
-            <h2 id="modalTitle" class="text-xl font-bold text-gray-800 mb-2">Fitur</h2>
-            <p class="text-sm text-gray-400 mb-6">Halaman ini sedang dalam pengerjaan Bos kuh. Sabar ya!</p>
-            <button onclick="closePopup()" class="w-full py-3 bg-green-600 text-white rounded-xl font-bold btn-active">Oke, Siap!</button>
         </div>
+        <i class="fa-solid fa-chevron-right text-gray-600"></i>
     </div>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around items-center py-3 max-w-md mx-auto shadow-lg">
-        <div onclick="window.scrollTo(0,0)" class="flex flex-col items-center text-green-700 cursor-pointer btn-active">
-            <i class="fa-solid fa-house text-lg"></i>
-            <span class="text-[10px] font-bold">Beranda</span>
+    <div class="fixed bottom-6 left-6 right-6 h-20 floating-nav flex justify-around items-center px-4 max-w-[calc(448px-3rem)] mx-auto">
+        <button onclick="location.reload()" class="text-green-400 text-xl p-3"><i class="fa-solid fa-house-chimney"></i></button>
+        <button onclick="showModal('Analytics')" class="text-gray-500 text-xl p-3 active:text-white"><i class="fa-solid fa-chart-simple"></i></button>
+        <button onclick="showModal('Messages')" class="text-gray-500 text-xl p-3 active:text-white"><i class="fa-solid fa-comment-dots"></i></button>
+        <button onclick="showModal('Settings')" class="text-gray-500 text-xl p-3 active:text-white"><i class="fa-solid fa-sliders"></i></button>
+    </div>
+
+    <div id="modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-black/60 backdrop-blur-md">
+        <div class="glass w-full max-w-xs rounded-[40px] p-8 text-center relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-green-500/20 rounded-full blur-2xl"></div>
+            <i class="fa-solid fa-atom text-4xl text-green-400 mb-4 animate-spin-slow"></i>
+            <h3 id="modalTitle" class="text-xl font-bold mb-2 uppercase tracking-widest">Title</h3>
+            <p class="text-sm text-gray-400 font-light mb-8 italic">"Building the future of Miftah Ecosystem..."</p>
+            <button onclick="closeModal()" class="w-full py-4 bg-white text-black rounded-2xl font-black text-xs uppercase tracking-widest active:scale-95 transition-all">Close Access</button>
         </div>
-        <div onclick="showPopup('Promo')" class="flex flex-col items-center text-gray-400 cursor-pointer btn-active">
-            <i class="fa-solid fa-percent text-lg"></i>
-            <span class="text-[10px]">Promo</span>
-        </div>
-        <div onclick="showPopup('Chat')" class="flex flex-col items-center text-gray-400 cursor-pointer btn-active">
-            <i class="fa-solid fa-message text-lg"></i>
-            <span class="text-[10px]">Chat</span>
-        </div>
-    </nav>
+    </div>
 
     <script>
-        function showPopup(title) {
+        function showModal(title) {
             document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalBox').classList.add('show');
+            document.getElementById('modal').style.display = 'flex';
         }
-        function closePopup() {
-            document.getElementById('modalBox').classList.remove('show');
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
         }
     </script>
 
+    <style>
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow { animation: spin-slow 10s linear infinite; }
+    </style>
 </body>
 </html>
