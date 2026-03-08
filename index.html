@@ -3,130 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Hub Live - Miftah</title>
+    <title>Daily Hub - Miftah Style</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: linear-gradient(135deg, #006d0e 0%, #004e92 100%);
-            min-height: 100vh;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #00880d 0%, #005f6b 100%); min-height: 100vh; }
+        
+        /* Animasi pencet tombol */
+        .btn-active:active { transform: scale(0.95); transition: 0.1s; }
+        
+        /* Gaya Modal (Jendela Pop-up) */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
-        .glass-container { background: rgba(255, 255, 255, 0.97); border-radius: 30px 30px 0 0; }
-        .premium-card { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
-        .modal.active { display: flex; }
-        .btn-click:active { transform: scale(0.92); transition: 0.1s; }
+        .modal.show { display: flex; }
     </style>
 </head>
-<body class="max-w-md mx-auto">
+<body class="max-w-md mx-auto pb-20">
 
-    <div class="p-6 text-white">
-        <div class="flex justify-between items-center mb-6">
-            <div>
-                <p class="text-xs opacity-70">Selamat datang,</p>
-                <h1 class="text-xl font-bold">Miftah Ilmi</h1>
+    <div class="p-4 bg-white/10 backdrop-blur-md sticky top-0 z-10 shadow-sm text-white">
+        <div class="flex items-center gap-3">
+            <div class="relative flex-1">
+                <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text" onclick="showPopup('Pencarian')" placeholder="Cari fitur atau tugas..." class="w-full pl-10 pr-4 py-2 bg-white border-none rounded-full text-sm text-gray-800 outline-none">
             </div>
-            <div class="flex gap-3">
-                <button onclick="openModal('Notifikasi', 'Belum ada pemberitahuan baru hari ini.')" class="w-10 h-10 premium-card rounded-full flex items-center justify-center btn-click">
-                    <i class="fa-solid fa-bell text-sm"></i>
-                </button>
-                <button onclick="openModal('Profil User', 'Pengaturan akun Miftah Ilmi.')" class="w-10 h-10 premium-card rounded-full flex items-center justify-center border-2 border-white/50 btn-click">
-                    <i class="fa-solid fa-user text-sm"></i>
-                </button>
+            <div onclick="showPopup('Profil Miftah')" class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white cursor-pointer btn-active">
+                <i class="fa-solid fa-user"></i>
             </div>
         </div>
+    </div>
 
-        <div class="bg-white rounded-3xl p-5 shadow-2xl flex items-center justify-between text-slate-800">
-            <div onclick="openModal('Detail Saldo', 'Riwayat transaksi dan koin kamu.')" class="flex items-center gap-4 cursor-pointer btn-click">
-                <div class="w-12 h-12 bg-sky-100 rounded-2xl flex items-center justify-center text-sky-600">
-                    <i class="fa-solid fa-wallet text-xl"></i>
+    <div class="px-4 py-3">
+        <div class="bg-white rounded-2xl p-4 text-gray-800 flex items-center justify-between shadow-xl">
+            <div onclick="showPopup('Detail Saldo')" class="flex items-center gap-3 cursor-pointer btn-active">
+                <div class="bg-sky-100 rounded-lg p-2 text-sky-600">
+                    <i class="fa-solid fa-wallet"></i>
                 </div>
                 <div>
-                    <p class="text-[10px] font-bold text-sky-600 uppercase tracking-wider">Saldo Digital</p>
-                    <p class="text-xl font-black">Rp 0</p>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase leading-none">Status Saldo</p>
+                    <p class="text-sm font-bold text-sky-600">Rp0</p>
                 </div>
             </div>
-            <div class="flex gap-3 border-l pl-4">
-                <button onclick="openModal('Isi Saldo', 'Menu Top-Up via Bank atau E-Wallet.')" class="flex flex-col items-center gap-1 btn-click">
-                    <div class="w-8 h-8 bg-sky-600 rounded-lg flex items-center justify-center text-white text-xs shadow-lg"><i class="fa-solid fa-plus"></i></div>
-                    <span class="text-[10px] font-bold text-slate-600">Isi</span>
-                </button>
-                <button onclick="openModal('Kirim Saldo', 'Transfer antar akun atau ke rekening.')" class="flex flex-col items-center gap-1 btn-click">
-                    <div class="w-8 h-8 bg-sky-100 rounded-lg flex items-center justify-center text-sky-600 text-xs"><i class="fa-solid fa-paper-plane"></i></div>
-                    <span class="text-[10px] font-bold text-slate-600">Kirim</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="glass-container mt-4 min-h-screen px-6 pt-8 pb-32">
-        
-        <div class="relative mb-8">
-            <span class="absolute inset-y-0 left-4 flex items-center text-gray-400">
-                <i class="fa-solid fa-magnifying-glass text-sm"></i>
-            </span>
-            <input type="text" onfocus="openModal('Pencarian', 'Ketik apa yang ingin kamu cari...')" placeholder="Cari fitur atau tugas..." class="w-full pl-12 pr-4 py-3 bg-gray-100 border-none rounded-2xl text-sm outline-none">
-        </div>
-
-        <div class="grid grid-cols-3 gap-y-8 gap-x-4 text-center">
-            <button onclick="openModal('Shopee Affiliate', 'Dashboard monitoring link & video.')" class="flex flex-col items-center btn-click">
-                <div class="w-16 h-16 bg-orange-50 rounded-3xl flex items-center justify-center mb-2 border border-orange-100"><i class="fa-solid fa-video text-orange-500 text-2xl"></i></div>
-                <span class="text-xs text-slate-700 font-bold">Shopee Aff</span>
-            </button>
-            <button onclick="openModal('Smart Fisheries', 'Kontrol alat pakan lele otomatis.')" class="flex flex-col items-center btn-click">
-                <div class="w-16 h-16 bg-cyan-50 rounded-3xl flex items-center justify-center mb-2 border border-cyan-100"><i class="fa-solid fa-fish-fins text-cyan-500 text-2xl"></i></div>
-                <span class="text-xs text-slate-700 font-bold">Fisheries</span>
-            </button>
-            <button onclick="openModal('UKM Keperawatan', 'Agenda dan tugas organisasi.')" class="flex flex-col items-center btn-click">
-                <div class="w-16 h-16 bg-red-50 rounded-3xl flex items-center justify-center mb-2 border border-red-100"><i class="fa-solid fa-hospital-user text-red-600 text-2xl"></i></div>
-                <span class="text-xs text-slate-700 font-bold">UKM Kep</span>
-            </button>
-        </div>
-    </div>
-
-    <div id="blankModal" class="modal">
-        <div class="bg-white w-full max-w-sm rounded-[32px] p-8 shadow-2xl">
-            <div class="text-center py-6">
-                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fa-solid fa-code text-2xl"></i>
+            <div class="flex gap-4 text-center">
+                <div onclick="showPopup('Menu Bayar')" class="flex flex-col items-center cursor-pointer btn-active">
+                    <div class="w-8 h-8 bg-sky-600 rounded-lg flex items-center justify-center mb-1 text-white"><i class="fa-solid fa-arrow-up text-xs"></i></div>
+                    <span class="text-[10px] font-bold">Bayar</span>
                 </div>
-                <h2 id="modalTitle" class="text-xl font-bold text-slate-800 mb-2">Nama Fitur</h2>
-                <p id="modalDesc" class="text-sm text-gray-400 px-4">Deskripsi fitur sementara.</p>
+                <div onclick="showPopup('Lainnya')" class="flex flex-col items-center cursor-pointer btn-active">
+                    <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center mb-1"><i class="fa-solid fa-ellipsis text-xs"></i></div>
+                    <span class="text-[10px] font-bold">Menu</span>
+                </div>
             </div>
-            <button onclick="closeModal()" class="w-full py-4 bg-slate-800 text-white rounded-2xl font-bold text-sm btn-click">Kembali</button>
         </div>
     </div>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around items-center py-4 max-w-md mx-auto shadow-lg">
-        <button onclick="location.reload()" class="flex flex-col items-center text-green-600 btn-click">
-            <i class="fa-solid fa-house-user text-xl"></i>
-            <span class="text-[10px] font-bold mt-1">Beranda</span>
-        </button>
-        <button onclick="openModal('Aktivitas', 'Lihat riwayat kesibukanmu di sini.')" class="flex flex-col items-center text-gray-400 btn-click">
-            <i class="fa-solid fa-chart-pie text-xl"></i>
-            <span class="text-[10px] font-medium mt-1">Aktivitas</span>
-        </button>
-        <button onclick="openModal('Pesan', 'Kotak masuk chat dan notifikasi sistem.')" class="flex flex-col items-center text-gray-400 btn-click">
-            <i class="fa-solid fa-message text-xl"></i>
-            <span class="text-[10px] font-medium mt-1">Pesan</span>
-        </button>
-        <button onclick="openModal('Setelan', 'Pengaturan aplikasi dan privasi.')" class="flex flex-col items-center text-gray-400 btn-click">
-            <i class="fa-solid fa-gear text-xl"></i>
-            <span class="text-[10px] font-medium mt-1">Setelan</span>
-        </button>
+    <div class="px-6 py-6 bg-white/95 mt-4 rounded-t-[40px] shadow-2xl min-h-screen">
+        <div class="grid grid-cols-4 gap-y-8 gap-x-2 text-center">
+            
+            <div onclick="showPopup('Shopee Affiliate')" class="flex flex-col items-center cursor-pointer btn-active">
+                <div class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-video text-orange-500 text-xl"></i></div>
+                <span class="text-[11px] font-bold text-gray-600">Shopee</span>
+            </div>
+
+            <div onclick="showPopup('Baca Buku')" class="flex flex-col items-center cursor-pointer btn-active">
+                <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-book-open text-blue-500 text-xl"></i></div>
+                <span class="text-[11px] font-bold text-gray-600">Baca</span>
+            </div>
+
+            <div onclick="showPopup('Coding')" class="flex flex-col items-center cursor-pointer btn-active">
+                <div class="w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-code text-white text-xl"></i></div>
+                <span class="text-[11px] font-bold text-gray-600">Coding</span>
+            </div>
+
+            <div onclick="showPopup('Smart Fisheries')" class="flex flex-col items-center cursor-pointer btn-active">
+                <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-fish text-green-600 text-xl"></i></div>
+                <span class="text-[11px] font-bold text-gray-600">Ikan</span>
+            </div>
+
+            <div onclick="showPopup('Katalog')" class="flex flex-col items-center cursor-pointer btn-active">
+                <div class="w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-list-check text-pink-500 text-xl"></i></div>
+                <span class="text-[11px] font-bold text-gray-600">Katalog</span>
+            </div>
+
+            <div onclick="showPopup('Stek Tin')" class="flex flex-col items-center cursor-pointer btn-active">
+                <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-leaf text-emerald-600 text-xl"></i></div>
+                <span class="text-[11px] font-bold text-gray-600">Tanaman</span>
+            </div>
+
+            <div onclick="showPopup('UKM Keperawatan')" class="flex flex-col items-center cursor-pointer btn-active">
+                <div class="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-hospital-user text-red-600 text-xl"></i></div>
+                <span class="text-[11px] font-bold text-gray-600">UKM</span>
+            </div>
+
+            <div onclick="showPopup('Mining Biz')" class="flex flex-col items-center cursor-pointer btn-active">
+                <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-1 shadow-sm"><i class="fa-solid fa-microchip text-purple-600 text-xl"></i></div>
+                <span class="text-[11px] font-bold text-gray-600">Mining</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="modalBox" class="modal">
+        <div class="bg-white w-full max-w-xs rounded-3xl p-8 shadow-2xl text-center">
+            <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-dashed border-gray-300 text-gray-300">
+                <i class="fa-solid fa-screwdriver-wrench text-3xl"></i>
+            </div>
+            <h2 id="modalTitle" class="text-xl font-bold text-gray-800 mb-2">Fitur</h2>
+            <p class="text-sm text-gray-400 mb-6">Halaman ini sedang dalam pengerjaan Bos kuh. Sabar ya!</p>
+            <button onclick="closePopup()" class="w-full py-3 bg-green-600 text-white rounded-xl font-bold btn-active">Oke, Siap!</button>
+        </div>
+    </div>
+
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around items-center py-3 max-w-md mx-auto shadow-lg">
+        <div onclick="window.scrollTo(0,0)" class="flex flex-col items-center text-green-700 cursor-pointer btn-active">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span class="text-[10px] font-bold">Beranda</span>
+        </div>
+        <div onclick="showPopup('Promo')" class="flex flex-col items-center text-gray-400 cursor-pointer btn-active">
+            <i class="fa-solid fa-percent text-lg"></i>
+            <span class="text-[10px]">Promo</span>
+        </div>
+        <div onclick="showPopup('Chat')" class="flex flex-col items-center text-gray-400 cursor-pointer btn-active">
+            <i class="fa-solid fa-message text-lg"></i>
+            <span class="text-[10px]">Chat</span>
+        </div>
     </nav>
 
     <script>
-        function openModal(title, desc) {
+        function showPopup(title) {
             document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalDesc').innerText = desc;
-            document.getElementById('blankModal').classList.add('active');
+            document.getElementById('modalBox').classList.add('show');
         }
-        function closeModal() {
-            document.getElementById('blankModal').classList.remove('active');
+        function closePopup() {
+            document.getElementById('modalBox').classList.remove('show');
         }
     </script>
+
 </body>
 </html>
